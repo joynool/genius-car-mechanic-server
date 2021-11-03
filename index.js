@@ -61,6 +61,13 @@ async function run ()
             const result = await orderCollection.insertOne(newOrders);
             res.json(result);
         });
+        //order GET API
+        app.get('/orders', async (req, res) =>
+        {
+            const cursor = orderCollection.find({});
+            const orders = await cursor.toArray();
+            res.send(orders);
+        });
     }
     finally {
 
