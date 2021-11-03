@@ -23,6 +23,7 @@ async function run ()
         await client.connect();
         const database = client.db('carMechanic');
         const servicesCollection = database.collection('services');
+        const orderCollection = database.collection('orders');
         //GET API
         app.get('/services', async (req, res) =>
         {
@@ -53,6 +54,13 @@ async function run ()
             const result = await servicesCollection.deleteOne(query);
             res.json(result);
         })
+        //order POST API
+        app.post('/orders', async (req, res) =>
+        {
+            const newOrders = req.body;
+            const result = await orderCollection.insertOne(newOrders);
+            res.json(result);
+        });
     }
     finally {
 
